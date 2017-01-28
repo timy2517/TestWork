@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Restaurants>
+    <restaurant
+        address="г.Минск, Беларусь, ул.Пирогова, 9а-7"
+        id="1"
+        phone="+375172032710"
+        />
+
+    <restaurant
+        address="г.Минск, Беларусь, ул.Козыревская, 10"
+        id="2"
+        phone="+375175076248, +375172094034"
+        />
+
+    <restaurant
+        address="г.Минск, Беларусь, пр.Независимости, 1"
+        id="3"
+        phone="+375172728791"
+        />
+</Restaurants>
