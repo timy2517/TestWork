@@ -2,6 +2,8 @@ package com.gmail.timy2517.homework.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -21,6 +23,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Artem Novik on 18.11.2016.
@@ -85,20 +90,44 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         }
 
         mMap.setMyLocationEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                placeMarkerOnMap(currentLocation);
+                placeUserOnMap(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
-
             }
+        }
+        placeRestaurantMarkersOnMap();
+    }
+
+    private void placeRestaurantMarkersOnMap() {
+        RestaurantBank mRestaurantBank = RestaurantBank.getInstance();
+
+        Geocoder mGeocoder = new Geocoder(getActivity());
+        List<Address> address;
+        MarkerOptions markerOptions;
+        LatLng p1 = null;
+
+        for (int i = 0; i < mRestaurantBank.getRestaurantList().size(); i++) {
+            try {
+                address = mGeocoder.getFromLocationName(mRestaurantBank.getRestaurant(i).getAddress(), 5);
+                Address location = address.get(0);
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            markerOptions = new MarkerOptions().position(p1);
+            mMap.addMarker(markerOptions);
         }
     }
 
-    private void placeMarkerOnMap(LatLng location) {
+    private void placeUserOnMap(LatLng location) {
         MarkerOptions markerOptions = new MarkerOptions().position(location);
         mMap.addMarker(markerOptions);
     }

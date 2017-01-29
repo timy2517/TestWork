@@ -16,6 +16,7 @@ import java.net.URL;
 public class FoodDownloader extends AsyncTask<Void, Void, Void> {
 
     private Context mContext;
+    public static final String URL = "http://ufa.farfor.ru/getyml/?key=ukAXxeJYZN";
     //ProgressDialog mProgressDialog;
 
     public FoodDownloader(Context context) {
@@ -27,7 +28,7 @@ public class FoodDownloader extends AsyncTask<Void, Void, Void> {
         try {
             loadCategories(mContext);
             loadRestaurantList(mContext);
-            loadXmlFromNetwork("http://ufa.farfor.ru/getyml/?key=ukAXxeJYZN");
+            loadXmlFromNetwork(URL);
         } catch (IOException e) {
             e.getMessage();
         } catch (XmlPullParserException e) {

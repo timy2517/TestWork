@@ -28,6 +28,10 @@ public class RestaurantBank {
         mRestaurantList.add(restaurant);
     }
 
+    public Restaurant getRestaurant(int id){
+        return mRestaurantList.get(id);
+    }
+
     public void printBank() {
         System.out.println("------------------------------------------");
         System.out.println(mRestaurantList.get(0).getAddress());
