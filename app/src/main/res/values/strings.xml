@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">HomeWork</string>
-    <string name="drawer_item_contact">Контакты</string>
-    <string name="drawer_item_menu">Меню</string>
+    <string name="drawer_item_contacts">Контакты</string>
+    <string name="drawer_item_categories">Меню</string>
+    <string name="drawer_open">открыть меню</string>
+    <string name="drawer_close">закрыть меню</string>
 </resources>

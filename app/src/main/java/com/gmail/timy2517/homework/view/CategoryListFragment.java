@@ -85,6 +85,7 @@ public class CategoryListFragment extends Fragment {
                             .replace(R.id.fragmentContainer, FoodListFragment.newInstance(mCategory.getCategoryId()))
                             .addToBackStack(null)
                             .commit();
+                    //.setTitle(mCategory.getName());//TODO название категории в toolbar
                     break;
                 }
             }
