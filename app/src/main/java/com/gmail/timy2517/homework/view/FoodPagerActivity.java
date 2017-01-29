@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
 
 import com.gmail.timy2517.homework.R;
 import com.gmail.timy2517.homework.model.Food;
@@ -24,7 +22,6 @@ public class FoodPagerActivity extends SingleFragmentActivity {
 
     public static final String EXTRA_FOOD_ID = "com.gmail.timy2517.homework.view.foodId";
 
-    private ViewPager mViewPager;
     private List<Food> mFoodList;
     private FoodBank mFoodBank = FoodBank.getInstance();
     private int mCategoryId;
@@ -43,11 +40,11 @@ public class FoodPagerActivity extends SingleFragmentActivity {
         final int foodId = (int) getIntent().getSerializableExtra(EXTRA_FOOD_ID);
         mCategoryId = mFoodBank.getFood(foodId).getCategoryId();
 
-        mViewPager = (ViewPager) findViewById(R.id.activity_food_pager_view_pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.activity_food_pager_view_pager);
 
         mFoodList = mFoodBank.getFoodListByCategoryId(mCategoryId);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+        viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
                 Food food = mFoodList.get(position);
@@ -62,7 +59,7 @@ public class FoodPagerActivity extends SingleFragmentActivity {
 
         for (int i = 0; i < mFoodList.size(); i++) {
             if (mFoodList.get(i).getId() == foodId) {
-                mViewPager.setCurrentItem(i);
+                viewPager.setCurrentItem(i);
                 break;
             }
         }

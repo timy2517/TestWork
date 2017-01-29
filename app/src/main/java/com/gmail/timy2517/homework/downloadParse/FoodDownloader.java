@@ -2,10 +2,6 @@ package com.gmail.timy2517.homework.downloadParse;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import com.gmail.timy2517.homework.model.Restaurant;
-import com.gmail.timy2517.homework.model.RestaurantBank;
 
 import org.xmlpull.v1.XmlPullParserException;
 

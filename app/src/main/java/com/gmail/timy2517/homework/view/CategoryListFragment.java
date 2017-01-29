@@ -26,7 +26,6 @@ import java.util.List;
 public class CategoryListFragment extends Fragment {
 
     private RecyclerView mCategoryRecyclerView;
-    private CategoryAdapter mAdapter;
 
     @Nullable
     @Override
@@ -38,6 +37,8 @@ public class CategoryListFragment extends Fragment {
         }
 
         View view = inflater.inflate(R.layout.fragment_category_list, container, false);
+
+
         mCategoryRecyclerView = (RecyclerView) view.findViewById(R.id.category_recycler_view);
         mCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -49,18 +50,19 @@ public class CategoryListFragment extends Fragment {
     private void updateUI() {
         CategoryBank mCategoryBank = CategoryBank.getInstance();
         List<Category> mCategories = mCategoryBank.getCategoryList();
-        mAdapter = new CategoryAdapter(mCategories);
-        mCategoryRecyclerView.setAdapter(mAdapter);
+        CategoryAdapter adapter = new CategoryAdapter(mCategories);
+        mCategoryRecyclerView.setAdapter(adapter);
     }
 
     private class CategoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView mTitleTextView;
-        public ImageView mIconImageView;
+        private TextView mTitleTextView;
+        private ImageView mIconImageView;
+
 
         Category mCategory;
 
-        public CategoryHolder(View itemView) {
+        private CategoryHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
 
@@ -68,7 +70,7 @@ public class CategoryListFragment extends Fragment {
             mIconImageView = (ImageView) itemView.findViewById(R.id.list_item_category_icon);
         }
 
-        public void bindCategory(Category category) {
+        private void bindCategory(Category category) {
             mCategory = category;
             mTitleTextView.setText(mCategory.getName());
             mIconImageView.setImageResource(mCategory.getCategoryIconId());
@@ -96,7 +98,7 @@ public class CategoryListFragment extends Fragment {
 
         private List<Category> mCategories;
 
-        public CategoryAdapter(List<Category> categories) {
+        private CategoryAdapter(List<Category> categories) {
             mCategories = categories;
         }
 

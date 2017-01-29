@@ -47,7 +47,7 @@ public class FoodParser {
     private Food readFood(XmlPullParser parser) throws XmlPullParserException, IOException {
 
         Food mFood = new Food();
-        String name = "";
+        String name;
         String text = "";
         while (true) {
 

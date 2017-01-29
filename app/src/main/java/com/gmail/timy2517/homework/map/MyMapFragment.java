@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
 import com.gmail.timy2517.homework.model.RestaurantBank;
 import com.google.android.gms.common.ConnectionResult;
@@ -37,7 +36,6 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        Log.d("DEBUG", "onCreate");
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -45,7 +43,6 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
-            Log.d("DEBUG", "mGoogleApiClient build");
         }
 
         getMapAsync(this);
@@ -59,7 +56,6 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
     public void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
-        Log.d("DEBUG", "onStart");
     }
 
     @Override
@@ -68,14 +64,12 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
-        Log.d("DEBUG", "onStop");
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d("DEBUG", "onMapReady");
-        mMap = googleMap;
 
+        mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(this);
 
