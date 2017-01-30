@@ -31,21 +31,4 @@ public class RestaurantBank {
     public Restaurant getRestaurant(int id){
         return mRestaurantList.get(id);
     }
-
-    public void printBank() {
-        System.out.println("------------------------------------------");
-        System.out.println(mRestaurantList.get(0).getAddress());
-        System.out.println(mRestaurantList.get(0).getId());
-        System.out.println(mRestaurantList.get(0).getPhones());
-
-        System.out.println("------------------------------------------");
-        System.out.println(mRestaurantList.get(1).getAddress());
-        System.out.println(mRestaurantList.get(1).getId());
-        System.out.println(mRestaurantList.get(1).getPhones());
-
-        System.out.println("------------------------------------------");
-        System.out.println(mRestaurantList.get(2).getAddress());
-        System.out.println(mRestaurantList.get(2).getId());
-        System.out.println(mRestaurantList.get(2).getPhones());
-    }
 }
