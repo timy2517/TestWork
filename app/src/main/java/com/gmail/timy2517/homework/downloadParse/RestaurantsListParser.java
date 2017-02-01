@@ -31,9 +31,9 @@ public class RestaurantsListParser {
                 case XmlPullParser.START_TAG:
                     if (parser.getName().equals("restaurant")){
                         mRestaurant = new Restaurant();
-                        mRestaurant.setAddress(parser.getAttributeValue(0));
-                        mRestaurant.setId(Integer.valueOf(parser.getAttributeValue(1)));
-                        mRestaurant.addPhone(parser.getAttributeValue(2));
+                        mRestaurant.setAddress(parser.getAttributeValue(null, "address"));
+                        mRestaurant.setId(Integer.valueOf(parser.getAttributeValue(null, "id")));
+                        mRestaurant.addPhone(parser.getAttributeValue(null, "phone"));
                         mRestaurantBank.addRestaurant(mRestaurant);
                     }
                     break;
