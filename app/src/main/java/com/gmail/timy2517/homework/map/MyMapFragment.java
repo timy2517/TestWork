@@ -51,10 +51,6 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         }
 
         getMapAsync(this);
-
-        RestaurantBank mBank = RestaurantBank.getInstance();
-        mBank.printBank();
-
     }
 
     @Override

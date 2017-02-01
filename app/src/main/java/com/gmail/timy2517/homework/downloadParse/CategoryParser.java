@@ -30,11 +30,11 @@ public class CategoryParser {
                 case XmlPullParser.START_TAG:
                     if (parser.getName().equals("category")){
                         mCategory = new Category();
-                        mCategory.setName(parser.getAttributeValue(0));
-                        mCategory.setCategoryId(Integer.valueOf(parser.getAttributeValue(2)));
-                        int id = context.getResources()
-                                .getIdentifier(parser.getAttributeValue(1), "drawable", context.getPackageName());
-                        mCategory.setCategoryIconId(id);
+                        mCategory.setName(parser.getAttributeValue(null, "name"));
+                        mCategory.setCategoryId(Integer.valueOf(parser.getAttributeValue(null, "id")));
+                        int iconId = context.getResources()
+                                .getIdentifier(parser.getAttributeValue(null, "icon"), "drawable", context.getPackageName());
+                        mCategory.setCategoryIconId(iconId);
                         mCategoryBank.addCategory(mCategory);
                     }
                     break;
