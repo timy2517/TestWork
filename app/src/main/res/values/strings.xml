@@ -4,4 +4,6 @@
     <string name="drawer_item_categories">Меню</string>
     <string name="drawer_open">открыть меню</string>
     <string name="drawer_close">закрыть меню</string>
+    <string name="restaurant_info_address">Адрес ресторана</string>
+    <string name="restaurant_info_phone">Телефон</string>
 </resources>

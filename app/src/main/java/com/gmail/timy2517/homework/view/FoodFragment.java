@@ -22,11 +22,6 @@ public class FoodFragment extends Fragment {
 
     public static final String ARG_FOOD_ID = "food_id";
     private Food mFood;
-    private TextView mName;
-    private TextView mWeight;
-    private TextView mPrice;
-    private TextView mDescription;
-    private ImageView mImage;
     FoodBank mFoodBank = FoodBank.getInstance();
 
     public static FoodFragment newInstance(int foodId) {
@@ -52,27 +47,27 @@ public class FoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_food, container, false);
 
-        mName = (TextView) v.findViewById(R.id.name);
-        mWeight = (TextView) v.findViewById(R.id.weight);
-        mPrice = (TextView) v.findViewById(R.id.price);
-        mDescription = (TextView) v.findViewById(R.id.description);
-        mImage = (ImageView) v.findViewById(R.id.image);
+        TextView name = (TextView) v.findViewById(R.id.name);
+        TextView weight = (TextView) v.findViewById(R.id.weight);
+        TextView price = (TextView) v.findViewById(R.id.price);
+        TextView description = (TextView) v.findViewById(R.id.description);
+        ImageView image = (ImageView) v.findViewById(R.id.image);
 
 
-        mName.setText(mFood.getName());
-        mWeight.setText(mFood.getWeight());
-        mPrice.setText(mFood.getPrice());
-        mDescription.setText(mFood.getDescription());
+        name.setText(mFood.getName());
+        weight.setText(mFood.getWeight());
+        price.setText(mFood.getPrice());
+        description.setText(mFood.getDescription());
         if (mFood.getImageUrl().trim().length() == 0) {
             Picasso.with(getContext())
                     .load(R.drawable.desert)
-                    .into(mImage);
+                    .into(image);
         } else {
             Picasso.with(getContext())
                     .load(mFood.getImageUrl())
                     .placeholder(R.drawable.desert)
                     .error(R.drawable.desert)
-                    .into(mImage);
+                    .into(image);
         }
         return v;
     }

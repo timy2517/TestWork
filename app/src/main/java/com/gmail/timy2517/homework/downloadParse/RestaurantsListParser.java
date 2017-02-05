@@ -18,27 +18,52 @@ import java.io.IOException;
 public class RestaurantsListParser {
 
     private RestaurantBank mRestaurantBank = RestaurantBank.getInstance();
-    private Restaurant mRestaurant;
 
     public void parseXml(Context context) throws XmlPullParserException, IOException {
 
         XmlPullParser parser = context.getResources().getXml(R.xml.restaurants);
 
-        while (true){
-            switch (parser.getEventType()){
+        while (true) {
+            switch (parser.getEventType()) {
                 case XmlPullParser.END_DOCUMENT:
                     return;
                 case XmlPullParser.START_TAG:
-                    if (parser.getName().equals("restaurant")){
-                        mRestaurant = new Restaurant();
-                        mRestaurant.setAddress(parser.getAttributeValue(null, "address"));
-                        mRestaurant.setId(Integer.valueOf(parser.getAttributeValue(null, "id")));
-                        mRestaurant.addPhone(parser.getAttributeValue(null, "phone"));
-                        mRestaurantBank.addRestaurant(mRestaurant);
+                    if (parser.getName().equals("restaurant")) {
+
+                        mRestaurantBank.addRestaurant(reedRestaurant(parser));
+
                     }
                     break;
                 default:
                     break;
+            }
+            parser.next();
+        }
+    }
+
+    private Restaurant reedRestaurant(XmlPullParser parser) throws IOException, XmlPullParserException {
+        Restaurant mRestaurant = new Restaurant();
+
+        String text = "";
+
+        while (true) {
+            if (parser.getEventType() == XmlPullParser.TEXT) {
+                text = parser.getText();
+            } else if (parser.getEventType() == XmlPullParser.END_TAG) {
+                switch (parser.getName()) {
+                    case "address":
+                        mRestaurant.setAddress(text);
+                        break;
+                    case "id":
+                        mRestaurant.setId(Integer.valueOf(text));
+                        break;
+                    case "phone":
+                        mRestaurant.getPhones().add(text);
+                        break;
+                    case "restaurant":
+                        return mRestaurant;
+                }
+
             }
             parser.next();
         }

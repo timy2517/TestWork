@@ -10,8 +10,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
+import com.gmail.timy2517.homework.R;
+import com.gmail.timy2517.homework.model.Restaurant;
 import com.gmail.timy2517.homework.model.RestaurantBank;
+import com.gmail.timy2517.homework.view.RestaurantInfoFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -73,20 +78,40 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(this);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        setupMap();
+        setupLocation();
+
+        placeRestaurantMarkersOnMap();
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                for (Restaurant rest : RestaurantBank.getInstance().getRestaurantList()){
+                    if (rest.getAddress().equals(marker.getTitle())){
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        fm.beginTransaction()
+                                .replace(R.id.fragmentContainer, RestaurantInfoFragment.newInstance(rest.getId()))
+                                .addToBackStack(null)
+                                .commit();
+                        break;
+                    }
+                }
+            }
+        });
     }
 
-    private void setupMap() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+    private void setupLocation() {
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+
             return;
         }
-
         mMap.setMyLocationEnabled(true);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
@@ -97,7 +122,7 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
             }
         }
-        placeRestaurantMarkersOnMap();
+
     }
 
     private void placeRestaurantMarkersOnMap() {
@@ -118,7 +143,7 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
                 e.printStackTrace();
             }
 
-            markerOptions = new MarkerOptions().position(p1);
+            markerOptions = new MarkerOptions().position(p1).title(mRestaurantBank.getRestaurant(i).getAddress());
             mMap.addMarker(markerOptions);
         }
     }
@@ -126,6 +151,18 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
     private void placeUserOnMap(LatLng location) {
         MarkerOptions markerOptions = new MarkerOptions().position(location);
         mMap.addMarker(markerOptions);
+    }
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            setupLocation();
+        }
     }
 
     @Override
@@ -150,7 +187,7 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        setupMap();
+        setupLocation();
     }
 
     @Override
