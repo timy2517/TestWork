@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 import com.gmail.timy2517.homework.R;
 import com.gmail.timy2517.homework.model.Restaurant;
@@ -41,7 +40,6 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
 
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
-    private Location mLastLocation;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -87,8 +85,8 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                for (Restaurant rest : RestaurantBank.getInstance().getRestaurantList()){
-                    if (rest.getAddress().equals(marker.getTitle())){
+                for (Restaurant rest : RestaurantBank.getInstance().getRestaurantList()) {
+                    if (rest.getAddress().equals(marker.getTitle())) {
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         fm.beginTransaction()
                                 .replace(R.id.fragmentContainer, RestaurantInfoFragment.newInstance(rest.getId()))
@@ -115,9 +113,9 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
 
         LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mLastLocation != null) {
-                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (lastLocation != null) {
+                LatLng currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 placeUserOnMap(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
             }
@@ -143,8 +141,10 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
                 e.printStackTrace();
             }
 
-            markerOptions = new MarkerOptions().position(p1).title(mRestaurantBank.getRestaurant(i).getAddress());
-            mMap.addMarker(markerOptions);
+            if (p1 != null) {
+                markerOptions = new MarkerOptions().position(p1).title(mRestaurantBank.getRestaurant(i).getAddress());
+                mMap.addMarker(markerOptions);
+            }
         }
     }
 
@@ -154,13 +154,11 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
     }
 
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                grantResults[1] == PackageManager.PERMISSION_GRANTED) {
             setupLocation();
         }
     }

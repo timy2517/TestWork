@@ -13,9 +13,9 @@ import java.io.InputStream;
 /**
  * Created by Artem Novik on 28.10.2016.
  */
-public class FoodParser {
+class FoodParser {
 
-    FoodBank mFoodBank = FoodBank.getInstance();
+    private FoodBank mFoodBank = FoodBank.getInstance();
 
     public void parse(InputStream in) throws XmlPullParserException, IOException {
         try {

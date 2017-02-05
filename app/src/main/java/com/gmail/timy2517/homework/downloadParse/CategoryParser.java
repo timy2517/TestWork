@@ -14,10 +14,9 @@ import java.io.IOException;
 /**
  * Created by Artem Novik on 14.11.2016.
  */
-public class CategoryParser {
+class CategoryParser {
 
     private CategoryBank mCategoryBank = CategoryBank.getInstance();
-    private Category mCategory;
 
     public void parseXml(Context context) throws XmlPullParserException, IOException {
 
@@ -29,13 +28,13 @@ public class CategoryParser {
                     return;
                 case XmlPullParser.START_TAG:
                     if (parser.getName().equals("category")){
-                        mCategory = new Category();
-                        mCategory.setName(parser.getAttributeValue(null, "name"));
-                        mCategory.setCategoryId(Integer.valueOf(parser.getAttributeValue(null, "id")));
+                        Category category = new Category();
+                        category.setName(parser.getAttributeValue(null, "name"));
+                        category.setCategoryId(Integer.valueOf(parser.getAttributeValue(null, "id")));
                         int iconId = context.getResources()
                                 .getIdentifier(parser.getAttributeValue(null, "icon"), "drawable", context.getPackageName());
-                        mCategory.setCategoryIconId(iconId);
-                        mCategoryBank.addCategory(mCategory);
+                        category.setCategoryIconId(iconId);
+                        mCategoryBank.addCategory(category);
                     }
                     break;
                 default:

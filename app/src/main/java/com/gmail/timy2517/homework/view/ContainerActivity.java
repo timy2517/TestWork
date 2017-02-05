@@ -27,9 +27,7 @@ public class ContainerActivity extends SingleFragmentActivity {
         }
     }
 
-    protected Fragment createFragment() {
+    private Fragment createFragment() {
         return new CategoryListFragment();
-        //return new MyMapFragment();
-
     }
 }

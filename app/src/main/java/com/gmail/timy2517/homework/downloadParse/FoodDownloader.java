@@ -16,8 +16,7 @@ import java.net.URL;
 public class FoodDownloader extends AsyncTask<Void, Void, Void> {
 
     private Context mContext;
-    public static final String URL = "http://ufa.farfor.ru/getyml/?key=ukAXxeJYZN";
-    //ProgressDialog mProgressDialog;
+    private static final String URL = "http://ufa.farfor.ru/getyml/?key=ukAXxeJYZN";
 
     public FoodDownloader(Context context) {
         mContext = context;
@@ -29,27 +28,10 @@ public class FoodDownloader extends AsyncTask<Void, Void, Void> {
             loadCategories(mContext);
             loadRestaurantList(mContext);
             loadXmlFromNetwork(URL);
-        } catch (IOException e) {
-            e.getMessage();
-        } catch (XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException e) {
             e.getMessage();
         }
         return null;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        //mProgressDialog = new ProgressDialog(mContext);
-        //mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //mProgressDialog.setMessage(mContext.getString(R.string.progress_dialog));
-        //mProgressDialog.show();
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        //mProgressDialog.cancel();
     }
 
     private void loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
@@ -62,13 +44,13 @@ public class FoodDownloader extends AsyncTask<Void, Void, Void> {
         mFoodParser.parse(conn.getInputStream());
     }
 
-    public void loadCategories(Context context) throws IOException, XmlPullParserException {
+    private void loadCategories(Context context) throws IOException, XmlPullParserException {
 
         CategoryParser mParser = new CategoryParser();
         mParser.parseXml(context);
     }
 
-    public void loadRestaurantList(Context context) throws IOException, XmlPullParserException {
+    private void loadRestaurantList(Context context) throws IOException, XmlPullParserException {
         RestaurantsListParser mParser = new RestaurantsListParser();
         mParser.parseXml(context);
     }

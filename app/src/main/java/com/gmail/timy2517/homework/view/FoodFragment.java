@@ -20,9 +20,9 @@ import com.squareup.picasso.Picasso;
  */
 public class FoodFragment extends Fragment {
 
-    public static final String ARG_FOOD_ID = "food_id";
+    private static final String ARG_FOOD_ID = "food_id";
     private Food mFood;
-    FoodBank mFoodBank = FoodBank.getInstance();
+    private FoodBank mFoodBank = FoodBank.getInstance();
 
     public static FoodFragment newInstance(int foodId) {
         Bundle args = new Bundle();

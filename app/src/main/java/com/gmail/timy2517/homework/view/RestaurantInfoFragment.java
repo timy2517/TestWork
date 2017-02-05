@@ -26,9 +26,9 @@ import com.gmail.timy2517.homework.model.RestaurantBank;
 
 public class RestaurantInfoFragment extends Fragment {
 
-    public static final String ARG_RESTAURANT_ID = "restaurant_id";
+    private static final String ARG_RESTAURANT_ID = "restaurant_id";
     private static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 1;
-    Intent intent;
+    private Intent intent;
 
     public static RestaurantInfoFragment newInstance(int restaurant_id){
         Bundle args = new Bundle();

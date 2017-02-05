@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class CategoryBank {
 
-    private  static CategoryBank instance = new CategoryBank();
+    private static CategoryBank instance = new CategoryBank();
 
     private List<Category> mCategoryList;
 

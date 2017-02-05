@@ -20,11 +20,8 @@ import com.gmail.timy2517.homework.map.MyMapFragment;
  */
 public class SingleFragmentActivity extends AppCompatActivity {
 
-    //protected abstract Fragment createFragment();
-
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +36,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
 
     }
 
-    public void initNavigationDrawer() {
+    private void initNavigationDrawer() {
 
         final NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -71,7 +68,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
             }
         });
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -82,8 +79,8 @@ public class SingleFragmentActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
     }
 

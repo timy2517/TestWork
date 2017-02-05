@@ -23,10 +23,9 @@ import java.util.List;
  */
 public class FoodListFragment extends Fragment {
 
-    public static final String ARG_CATEGORY_ID = "category_id";
+    private static final String ARG_CATEGORY_ID = "category_id";
 
     private RecyclerView mFoodRecyclerView;
-    private FoodAdapter mAdapter;
     private int categoryId;
 
     public static FoodListFragment newInstance(int categoryId){
@@ -56,10 +55,10 @@ public class FoodListFragment extends Fragment {
     private void updateUI() {
         FoodBank mFoodBank = FoodBank.getInstance();
 
-        List<Food> mFoodList = mFoodBank.getFoodListByCategoryId(categoryId);
+        List mFoodList = mFoodBank.getFoodListByCategoryId(categoryId);
 
-        mAdapter = new FoodAdapter(mFoodList);
-        mFoodRecyclerView.setAdapter(mAdapter);
+        FoodAdapter adapter = new FoodAdapter(mFoodList);
+        mFoodRecyclerView.setAdapter(adapter);
     }
 
 

@@ -20,11 +20,10 @@ import java.util.List;
  */
 public class FoodPagerActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_FOOD_ID = "com.gmail.timy2517.homework.view.foodId";
+    private static final String EXTRA_FOOD_ID = "com.gmail.timy2517.homework.view.foodId";
 
     private List<Food> mFoodList;
     private FoodBank mFoodBank = FoodBank.getInstance();
-    private int mCategoryId;
 
     public static Intent newIntent(Context packageContext, int foodId) {
         Intent intent = new Intent(packageContext, FoodPagerActivity.class);
@@ -38,11 +37,11 @@ public class FoodPagerActivity extends SingleFragmentActivity {
         setContentView(R.layout.activity_food_pager);
 
         final int foodId = (int) getIntent().getSerializableExtra(EXTRA_FOOD_ID);
-        mCategoryId = mFoodBank.getFood(foodId).getCategoryId();
+        int categoryId = mFoodBank.getFood(foodId).getCategoryId();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.activity_food_pager_view_pager);
 
-        mFoodList = mFoodBank.getFoodListByCategoryId(mCategoryId);
+        mFoodList = mFoodBank.getFoodListByCategoryId(categoryId);
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override

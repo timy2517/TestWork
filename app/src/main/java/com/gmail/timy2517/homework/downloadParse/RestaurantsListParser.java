@@ -15,7 +15,7 @@ import java.io.IOException;
  * Created by artem on 25.1.17.
  */
 
-public class RestaurantsListParser {
+class RestaurantsListParser {
 
     private RestaurantBank mRestaurantBank = RestaurantBank.getInstance();
 

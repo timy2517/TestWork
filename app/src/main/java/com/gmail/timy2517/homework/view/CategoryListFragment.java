@@ -49,7 +49,7 @@ public class CategoryListFragment extends Fragment {
 
     private void updateUI() {
         CategoryBank mCategoryBank = CategoryBank.getInstance();
-        List<Category> mCategories = mCategoryBank.getCategoryList();
+        List mCategories = mCategoryBank.getCategoryList();
         CategoryAdapter adapter = new CategoryAdapter(mCategories);
         mCategoryRecyclerView.setAdapter(adapter);
     }
@@ -87,7 +87,6 @@ public class CategoryListFragment extends Fragment {
                             .replace(R.id.fragmentContainer, FoodListFragment.newInstance(mCategory.getCategoryId()))
                             .addToBackStack(null)
                             .commit();
-                    //.setTitle(mCategory.getName());//TODO название категории в toolbar
                     break;
                 }
             }

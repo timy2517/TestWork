@@ -1,10 +1,9 @@
 package com.gmail.timy2517.homework.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by artem on 25.1.17.
+ * Created by Artem Novik on 25.1.17.
  */
 
 public class RestaurantBank {
