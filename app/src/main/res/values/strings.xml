@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HomeWork</string>
+    <string name="category">Категории</string>
+    <string name="map">Карта</string>
+    <string name="info">Инфо</string>
     <string name="drawer_item_contacts">Контакты</string>
     <string name="drawer_item_categories">Меню</string>
     <string name="drawer_open">открыть меню</string>

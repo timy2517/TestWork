@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.gmail.timy2517.homework.R;
 import com.gmail.timy2517.homework.model.Restaurant;
@@ -54,6 +55,12 @@ public class MyMapFragment extends SupportMapFragment implements OnMapReadyCallb
         }
 
         getMapAsync(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.map);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
                                 .replace(R.id.fragmentContainer, new CategoryListFragment())
                                 .addToBackStack("CategoryListFragment")
                                 .commit();
-                        getSupportActionBar().setSubtitle("Категории");
+                        //getSupportActionBar().setSubtitle("Категории");
                         break;
                     case R.id.contacts:
                         fragmentManager
@@ -60,7 +60,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
                                 .replace(R.id.fragmentContainer, new MyMapFragment())
                                 .addToBackStack("MyMapFragment")
                                 .commit();
-                        getSupportActionBar().setSubtitle("Карта");
+                        //getSupportActionBar().setSubtitle("Карта");
                         break;
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
